@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native';
 
 import { COLORS } from '../../styles';
+import { propTypes } from './prop-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,9 +36,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export const ConversionInput = ({ text, onButtonPress, ...props }) => {
+export const ConversionInput = ({ editable, text, onButtonPress, ...props }) => {
   const containerStyles = [styles.container];
-  if (props.editable === false) {
+  if (editable === false) {
     containerStyles.push(styles.disabledContainer);
   }
   return (
@@ -49,3 +50,5 @@ export const ConversionInput = ({ text, onButtonPress, ...props }) => {
     </View>
   );
 };
+
+ConversionInput.propTypes = propTypes;

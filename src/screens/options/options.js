@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 });
 const openURL = (url) => {
-  Linking.openURL(url).catch(() => alert('Something went wrong'));
+  Linking.openURL(url).catch(() => null);
 };
 export const Options = () => (
   <SafeAreaView style={styles.safeareapadding}>
@@ -21,7 +21,7 @@ export const Options = () => (
       <RowItem
         text='Themes'
         rightIcon={<Entypo color={COLORS.blue} name='chevron-right' size={20} />}
-        onPress={() => alert('todo!')}
+        onPress={() => null}
       />
       <RowSeperator />
       <RowItem

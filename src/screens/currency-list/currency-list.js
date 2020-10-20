@@ -2,9 +2,13 @@ import React from 'react';
 import { StatusBar, FlatList, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { useSafeArea } from 'react-native-safe-area-context';
-import CURRENCIES from '../../util/currencies.json';
+
 import { RowItem, RowSeperator } from '../../components/row-item';
+
 import { COLORS } from '../../styles';
+
+import CURRENCIES from '../../utils/currencies.json';
+import { propTypes } from './prop-types';
 
 export const CurrencyList = ({ navigation, route = {} }) => {
   const insets = useSafeArea();
@@ -40,3 +44,5 @@ export const CurrencyList = ({ navigation, route = {} }) => {
     </View>
   );
 };
+
+CurrencyList.propTypes = propTypes;

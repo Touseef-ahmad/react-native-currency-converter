@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   Image,
-  Keyboard,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -15,6 +14,8 @@ import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { ConversionInput, Button, KeyboardSpacer } from '../../components';
 import { fetchExchangeRates } from '../../api';
 import { COLORS } from '../../styles';
+import { BACKGROUND_IMAGE, LOGO } from '../../utils';
+import { propTypes } from './prop-types';
 
 const screen = Dimensions.get('window');
 
@@ -82,7 +83,13 @@ export const Home = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [scrollEnabled, setScrollEnabled] = useState(false);
-
+  const goToScreen = (screenName, activeCurrency) => {
+    navigation.push(screenName, {
+      title: 'Base Currency',
+      activeCurrency,
+      onChange: (currency) => setBaseCurrency(currency),
+    });
+  };
   useEffect(() => {
     const getCoversionRate = async () => {
       const data = await fetchExchangeRates(baseCurrency, quoteCurrency);
@@ -112,27 +119,13 @@ export const Home = ({ navigation }) => {
       <ScrollView scrollEnabled={scrollEnabled}>
         <View style={styles.content}>
           <View style={styles.logoContainer}>
-            <Image
-              resizeMode='contain'
-              style={styles.logoBackground}
-              source={require('../../assets/images/background.png')}
-            />
-            <Image
-              resizeMode='contain'
-              style={styles.logo}
-              source={require('../../assets/images/logo.png')}
-            />
+            <Image resizeMode='contain' style={styles.logoBackground} source={BACKGROUND_IMAGE} />
+            <Image resizeMode='contain' style={styles.logo} source={LOGO} />
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
           <View style={styles.inputContainer}>
             <ConversionInput
-              onButtonPress={() =>
-                navigation.push('CurrencyList', {
-                title: 'Base Currency',
-                activeCurrency: baseCurrency,
-                onChange: (currency) => setBaseCurrency(currency),
-              })
-              }
+              onButtonPress={() => goToScreen('CurrencyList', baseCurrency)}
               onChangeText={(text) => setValue(text)}
               text={baseCurrency}
               value={value}
@@ -141,13 +134,7 @@ export const Home = ({ navigation }) => {
             <ConversionInput
               editable={false}
               keyboardType='numeric'
-              onButtonPress={() =>
-                navigation.push('CurrencyList', {
-                title: 'Quote Currency',
-                activeCurrency: quoteCurrency,
-                onChange: (currency) => setQuoteCurrency(currency),
-              })
-              }
+              onButtonPress={() => goToScreen('CurrencyList', quoteCurrency)}
               text={quoteCurrency}
               value={value && `${(parseFloat(value) * conversionRate).toFixed(2)}`}
             />
@@ -168,3 +155,5 @@ export const Home = ({ navigation }) => {
     </View>
   );
 };
+
+Home.propTypes = propTypes;

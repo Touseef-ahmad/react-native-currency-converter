@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { COLORS } from '../../styles';
+import { propTypes } from './prop-types';
 
 const styles = StyleSheet.create({
   row: {
@@ -26,3 +27,5 @@ export const RowItem = ({ rightIcon, text, onPress }) => (
   </TouchableOpacity>
 );
 export const RowSeperator = () => <View style={styles.seperator} />;
+
+RowItem.propTypes = propTypes;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { COLORS } from '../../styles';
+import { REVERSE_IMAGE } from '../../utils';
+import { propTypes } from './prop-types';
 
 const styles = StyleSheet.create({
   button: {
@@ -21,11 +23,9 @@ const styles = StyleSheet.create({
 
 export const Button = ({ text, onButtonPress }) => (
   <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-    <Image
-      style={styles.buttonIcon}
-      source={require('../../assets/images/reverse.png')}
-      resizeMode='contain'
-    />
+    <Image style={styles.buttonIcon} source={REVERSE_IMAGE} resizeMode='contain' />
     <Text style={styles.buttonText}>{text}</Text>
   </TouchableOpacity>
 );
+
+Button.propTypes = propTypes;
