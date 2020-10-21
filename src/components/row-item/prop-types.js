@@ -1,7 +1,10 @@
-import { func, ReactComponentLike, string } from 'prop-types';
+import { func, Node, string } from 'prop-types';
 
 export const propTypes = {
-  rightIcon: ReactComponentLike.isRequired,
+  rightIcon: Node,
   text: string.isRequired,
   onPress: func.isRequired,
+};
+export const defaultProps = {
+  rightIcon: null,
 };

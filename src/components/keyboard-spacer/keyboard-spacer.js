@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Keyboard, View, Dimensions, Platform, StyleSheet } from 'react-native';
+import { Keyboard, Dimensions, Platform } from 'react-native';
+import { StyledContainer } from './styled';
 import { defaultProps, propTypes } from './prop-types';
 
-const styles = StyleSheet.create({
-  container: {
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
-
-export const KeyboardSpacer = ({ style, onToggle }) => {
+export const KeyboardSpacer = ({ onToggle }) => {
   const [keyboardSpace, setKeyboardSpace] = useState(0);
 
   useEffect(() => {
@@ -40,7 +33,7 @@ export const KeyboardSpacer = ({ style, onToggle }) => {
     };
   }, []);
 
-  return <View style={[styles.container, { height: keyboardSpace }, style]} />;
+  return <StyledContainer keyboardSpace={keyboardSpace} />;
 };
 
 KeyboardSpacer.propTypes = propTypes;
