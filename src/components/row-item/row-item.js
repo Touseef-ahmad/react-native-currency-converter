@@ -1,31 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import { COLORS } from '../../styles';
-import { propTypes } from './prop-types';
+import { StyledText, StyledRow, StyledSeperator } from './styled';
+import { defaultProps, propTypes } from './prop-types';
 
-const styles = StyleSheet.create({
-  row: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  text: {
-    fontSize: 16,
-    color: COLORS.textColor,
-  },
-  seperator: {
-    backgroundColor: COLORS.borderColor,
-    height: StyleSheet.hairlineWidth,
-  },
-});
 export const RowItem = ({ rightIcon, text, onPress }) => (
-  <TouchableOpacity style={styles.row} onPress={onPress}>
-    <Text style={styles.text}>{text}</Text>
+  <StyledRow onPress={onPress}>
+    <StyledText>{text}</StyledText>
     {rightIcon}
-  </TouchableOpacity>
+  </StyledRow>
 );
-export const RowSeperator = () => <View style={styles.seperator} />;
+export const RowSeperator = () => <StyledSeperator />;
 
 RowItem.propTypes = propTypes;
+RowItem.defaultProps = defaultProps;

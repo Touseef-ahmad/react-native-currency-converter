@@ -1,93 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Dimensions,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { ScrollView, StatusBar, TouchableOpacity } from 'react-native';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import { ConversionInput, Button, KeyboardSpacer } from '../../components';
+import {
+  StyledContentWrapper,
+  StyledErrorText,
+  StyledErrorWrapper,
+  StyledHeader,
+  StyledInputContainer,
+  StyledLogo,
+  StyledLogoBackground,
+  StyledLogoContainer,
+  StyledText,
+  StyledTextHeader,
+  StyledWrapper,
+} from './styled';
 import { fetchExchangeRates } from '../../api';
 import { COLORS } from '../../styles';
-import { BACKGROUND_IMAGE, LOGO } from '../../utils';
+import { BACKGROUND_IMAGE, LOGO, ConversionContext } from '../../utils';
 import { propTypes } from './prop-types';
 
-const screen = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.blue,
-  },
-  errorContainer: {
-    borderColor: 'red',
-    borderWidth: StyleSheet.hairlineWidth,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  content: {
-    paddingTop: screen.height * 0.1,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  logoBackground: {
-    width: screen.width / 0.45,
-    height: screen.width * 0.45,
-  },
-  logo: {
-    position: 'absolute',
-    width: screen.width * 0.25,
-    height: screen.width * 0.25,
-  },
-  textHeader: {
-    color: COLORS.white,
-    fontWeight: 'bold',
-    fontSize: 30,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 14,
-    color: COLORS.white,
-    textAlign: 'center',
-  },
-  errorText: {
-    color: COLORS.white,
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  inputContainer: {
-    marginBottom: 10,
-  },
-  header: {
-    alignItems: 'flex-end',
-    marginHorizontal: 20,
-  },
-});
-
 export const Home = ({ navigation }) => {
-  const [baseCurrency, setBaseCurrency] = useState('USD');
-  const [quoteCurrency, setQuoteCurrency] = useState('GBP');
+  const {
+    baseCurrency,
+    conversionRate,
+    quoteCurrency,
+    setConversionRate,
+    swapCurrencies,
+  } = useContext(ConversionContext);
   const [value, setValue] = useState('');
-  const [conversionRate, setConversionRate] = useState(165.72);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [scrollEnabled, setScrollEnabled] = useState(false);
-  const goToScreen = (screenName, activeCurrency) => {
+  const goToScreen = (screenName, isBaseCurrency) => {
     navigation.push(screenName, {
       title: 'Base Currency',
-      activeCurrency,
-      onChange: (currency) => setBaseCurrency(currency),
+      isBaseCurrency,
     });
   };
   useEffect(() => {
@@ -103,56 +51,52 @@ export const Home = ({ navigation }) => {
     };
     getCoversionRate();
   }, [baseCurrency, quoteCurrency]);
-  const swapCurrencies = () => {
-    setBaseCurrency(quoteCurrency);
-    setQuoteCurrency(baseCurrency);
-    setConversionRate(1 / conversionRate);
-  };
+
   return (
-    <View style={styles.container}>
+    <StyledWrapper>
       <StatusBar barStyle='light-content' backgroundColor={COLORS.blue} />
-      <SafeAreaView style={styles.header}>
+      <StyledHeader>
         <TouchableOpacity onPress={() => navigation.push('Options')}>
           <Entypo name='cog' size={32} color='white' />
         </TouchableOpacity>
-      </SafeAreaView>
+      </StyledHeader>
       <ScrollView scrollEnabled={scrollEnabled}>
-        <View style={styles.content}>
-          <View style={styles.logoContainer}>
-            <Image resizeMode='contain' style={styles.logoBackground} source={BACKGROUND_IMAGE} />
-            <Image resizeMode='contain' style={styles.logo} source={LOGO} />
-          </View>
-          <Text style={styles.textHeader}>Currency Converter</Text>
-          <View style={styles.inputContainer}>
+        <StyledContentWrapper>
+          <StyledLogoContainer>
+            <StyledLogoBackground resizeMode='contain' source={BACKGROUND_IMAGE} />
+            <StyledLogo resizeMode='contain' source={LOGO} />
+          </StyledLogoContainer>
+          <StyledTextHeader>Currency Converter</StyledTextHeader>
+          <StyledInputContainer>
             <ConversionInput
-              onButtonPress={() => goToScreen('CurrencyList', baseCurrency)}
+              onButtonPress={() => goToScreen('CurrencyList', true)}
               onChangeText={(text) => setValue(text)}
               text={baseCurrency}
               value={value}
               keyboardType='numeric'
             />
             <ConversionInput
-              editable={false}
+              isEditable={false}
               keyboardType='numeric'
-              onButtonPress={() => goToScreen('CurrencyList', quoteCurrency)}
+              onButtonPress={() => goToScreen('CurrencyList', false)}
               text={quoteCurrency}
               value={value && `${(parseFloat(value) * conversionRate).toFixed(2)}`}
             />
-          </View>
-          <Text style={styles.text}>
+          </StyledInputContainer>
+          <StyledText>
             {`1 ${baseCurrency} equals ${conversionRate.toFixed(2)} ${quoteCurrency}`}
-          </Text>
+          </StyledText>
           <Button onButtonPress={() => swapCurrencies()} text='Reverse currencies' />
           {error && (
-            <View style={styles.errorContainer}>
+            <StyledErrorWrapper>
               <MaterialIcons color={COLORS.white} name='error' size={20} />
-              <Text style={styles.errorText}>{errorMessage}</Text>
-            </View>
+              <StyledErrorText>{errorMessage}</StyledErrorText>
+            </StyledErrorWrapper>
           )}
-        </View>
+        </StyledContentWrapper>
         <KeyboardSpacer onToggle={(visible) => setScrollEnabled(visible)} />
       </ScrollView>
-    </View>
+    </StyledWrapper>
   );
 };
 

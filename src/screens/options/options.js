@@ -1,20 +1,15 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, Linking, StatusBar } from 'react-native';
+import { ScrollView, Linking, StatusBar } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { RowItem, RowSeperator } from '../../components';
+import { StyledSafeAreaView } from './styled';
 import { COLORS } from '../../styles';
 
-const styles = StyleSheet.create({
-  safeareapadding: {
-    paddingVertical: 50,
-    flex: 1,
-  },
-});
 const openURL = (url) => {
   Linking.openURL(url).catch(() => null);
 };
 export const Options = () => (
-  <SafeAreaView style={styles.safeareapadding}>
+  <StyledSafeAreaView>
     <StatusBar barStyle='dark-content' backgroundColor={COLORS.white} />
 
     <ScrollView>
@@ -36,5 +31,5 @@ export const Options = () => (
         onPress={() => openURL('https://expo.io/')}
       />
     </ScrollView>
-  </SafeAreaView>
+  </StyledSafeAreaView>
 );
