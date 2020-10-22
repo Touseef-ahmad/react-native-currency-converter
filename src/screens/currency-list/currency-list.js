@@ -1,60 +1,58 @@
 import React, { useContext } from 'react';
-import { StatusBar, FlatList, View, Text } from 'react-native';
+import { StatusBar, FlatList, Text } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 
 import { RowItem, RowSeperator } from '../../components/row-item';
 
-import { COLORS } from '../../styles';
+import { ItemPropTypes, propTypes } from './prop-types';
 
 import CURRENCIES from '../../utils/currencies.json';
-import { propTypes } from './prop-types';
 import { ConversionContext } from '../../utils';
 
-export const CurrencyList = ({ navigation, route = {} }) => {
+import { COLORS } from '../../styles';
+import { StyledWrapper, StyledFooterComponent } from './styled';
+
+export const CurrencyList = ({ navigation, route: { params } }) => {
   const { baseCurrency, quoteCurrency, setBaseCurrency, setQuoteCurrency } = useContext(
     ConversionContext,
   );
   const insets = useSafeArea();
-  const params = route.params || {};
   const { isBaseCurrency } = params;
+
+  const Item = ({ item }) => {
+    let selected = false;
+    if (isBaseCurrency && item === baseCurrency) {
+      selected = true;
+    } else if (!isBaseCurrency && item === quoteCurrency) {
+      selected = true;
+    }
+    const navigateBack = () => {
+      if (isBaseCurrency) {
+        setBaseCurrency(item);
+      } else {
+        setQuoteCurrency(item);
+      }
+      navigation.pop();
+    };
+    return (
+      <RowItem text={item} onPress={navigateBack} rightIcon={selected && <Text>&#10004;</Text>} />
+    );
+  };
+  Item.propTypes = ItemPropTypes;
+
+  const ListFooterComponent = () => <StyledFooterComponent insets={insets} />;
+
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.white,
-      }}
-    >
+    <StyledWrapper>
       <StatusBar barStyle='dark-content' backgroundColor={COLORS.white} />
       <FlatList
         data={CURRENCIES}
-        renderItem={({ item }) => {
-          let selected = false;
-
-          if (isBaseCurrency && item === baseCurrency) {
-            selected = true;
-          } else if (!isBaseCurrency && item === quoteCurrency) {
-            selected = true;
-          }
-          return (
-            <RowItem
-              text={item}
-              onPress={() => {
-                if (isBaseCurrency) {
-                  setBaseCurrency(item);
-                } else {
-                  setQuoteCurrency(item);
-                }
-                navigation.pop();
-              }}
-              rightIcon={selected && <Text>&#10004;</Text>}
-            />
-          );
-        }}
+        renderItem={Item}
         keyExtractor={(item) => item}
-        ItemSeparatorComponent={() => <RowSeperator />}
-        ListFooterComponent={() => <View style={{ paddingBottom: insets.bottom }} />}
+        ItemSeparatorComponent={RowSeperator}
+        ListFooterComponent={ListFooterComponent}
       />
-    </View>
+    </StyledWrapper>
   );
 };
 

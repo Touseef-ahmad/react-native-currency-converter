@@ -38,17 +38,17 @@ export const Home = ({ navigation }) => {
       isBaseCurrency,
     });
   };
+  const getCoversionRate = async () => {
+    const data = await fetchExchangeRates(baseCurrency, quoteCurrency);
+    if (data.message) {
+      setError(true);
+      setErrorMessage(data.message);
+      setConversionRate(0);
+    } else {
+      setConversionRate(data.rates[quoteCurrency]);
+    }
+  };
   useEffect(() => {
-    const getCoversionRate = async () => {
-      const data = await fetchExchangeRates(baseCurrency, quoteCurrency);
-      if (data.message) {
-        setError(true);
-        setErrorMessage(data.message);
-        setConversionRate(0);
-      } else {
-        setConversionRate(data.rates[quoteCurrency]);
-      }
-    };
     getCoversionRate();
   }, [baseCurrency, quoteCurrency]);
 

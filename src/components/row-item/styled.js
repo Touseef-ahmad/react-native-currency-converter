@@ -3,15 +3,17 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '../../styles';
 
 export const StyledRow = styled.TouchableOpacity`
-  padding: 20px 16px;
-  flex-direction: row;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
+  padding: 20px 16px;
 `;
+
 export const StyledText = styled.Text`
-  font-size: 16;
   color: ${COLORS.textColor};
+  font-size: 16;
 `;
+
 export const StyledSeperator = styled.View`
   background-color: ${COLORS.borderColor};
   height: ${StyleSheet.hairlineWidth};

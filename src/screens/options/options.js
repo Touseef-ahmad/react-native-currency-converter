@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, Linking, StatusBar } from 'react-native';
+import { Alert, ScrollView, Linking, StatusBar } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { RowItem, RowSeperator } from '../../components';
 import { StyledSafeAreaView } from './styled';
 import { COLORS } from '../../styles';
 
 const openURL = (url) => {
-  Linking.openURL(url).catch(() => null);
+  Linking.openURL(url).catch(() => Alert.alert('Network Error'));
 };
 export const Options = () => (
   <StyledSafeAreaView>
