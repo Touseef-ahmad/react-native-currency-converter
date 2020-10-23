@@ -69,6 +69,7 @@ export const Home = ({ navigation }) => {
           <StyledTextHeader>Currency Converter</StyledTextHeader>
           <StyledInputContainer>
             <ConversionInput
+              isEditable={false}
               onButtonPress={() => goToScreen('CurrencyList', true)}
               onChangeText={(text) => setValue(text)}
               text={baseCurrency}
