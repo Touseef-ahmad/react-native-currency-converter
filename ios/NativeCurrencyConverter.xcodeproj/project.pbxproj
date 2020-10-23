@@ -21,6 +21,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BDEA4E17BE657CF136FF4B4A /* libPods-NativeCurrencyConverter-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE49EF8CC7D63DC9E38E8F /* libPods-NativeCurrencyConverter-tvOS.a */; };
 		B31F16D3F7884EF0B0977051 /* VampiroOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4F46F7EDCC8419C983120A0 /* VampiroOne-Regular.ttf */; };
+		5F02B0B844064E5D96FCF245 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBE6B304ADDE41DF8A176B61 /* Pacifico-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FFF8E927EED5048EFEB1312D /* Pods-NativeCurrencyConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeCurrencyConverter.release.xcconfig"; path = "Target Support Files/Pods-NativeCurrencyConverter/Pods-NativeCurrencyConverter.release.xcconfig"; sourceTree = "<group>"; };
 		C4F46F7EDCC8419C983120A0 /* VampiroOne-Regular.ttf */ = {isa = PBXFileReference; name = "VampiroOne-Regular.ttf"; path = "../assets/fonts/VampiroOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EBE6B304ADDE41DF8A176B61 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; name = "Pacifico-Regular.ttf"; path = "../assets/fonts/Pacifico-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 			isa = "PBXGroup";
 			children = (
 				C4F46F7EDCC8419C983120A0 /* VampiroOne-Regular.ttf */,
+				EBE6B304ADDE41DF8A176B61 /* Pacifico-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B31F16D3F7884EF0B0977051 /* VampiroOne-Regular.ttf in Resources */,
+				5F02B0B844064E5D96FCF245 /* Pacifico-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

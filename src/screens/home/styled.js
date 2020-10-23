@@ -40,7 +40,7 @@ export const StyledLogoBackground = styled.Image`
 `;
 
 export const StyledTextHeader = styled.Text`
-  font-family: VampiroOne-Regular;
+  font-family: Pacifico-Regular;
   color: ${COLORS.white};
   font-size: 30px;
   font-weight: bold;
